@@ -1,0 +1,54 @@
+class Auto:
+    counter = 0  # Klassenvariable (Zähler)
+    historie = []
+    def __init__(self, farbe, speed, assistenten, ist_automatik):
+        Auto.counter += 1
+        
+        # Marke ist immer Mazda
+        self.marke = "Mazda"
+        
+        if Auto.counter % 2 == 0:
+            self.modell = "Sportkombi"
+        else:
+            self.modell = "Standard"
+            
+        # Attribute
+        self.farbe = farbe
+        self.speed = speed
+        self.assistenten = assistenten
+        self.ist_automatik = ist_automatik 
+        Auto.historie.append(self)
+        
+    def info(self):
+        getriebe = "Automatik" if self.ist_automatik else "Schaltgetriebe"
+        print(f"Fahrzeug {Auto.counter}: {self.marke} {self.modell} | Farbe: {self.farbe} | Speed: {self.speed} km/h | {getriebe}")
+
+class Standard(Auto):
+    def __init__(self, farbe, max_speed=210, ist_automatik=False):
+        super().__init__(farbe, max_speed)
+        self.modell = "Standard"
+        self.ist_automatik = ist_automatik
+
+# Sportkombi
+class Sportkombi(Auto):
+    def __init__(self, farbe, max_speed=280, turbo=True):
+        super().__init__(farbe, max_speed)
+        self.modell = "Sportkombi"
+        self.turbo = turbo
+
+
+# Objekte
+auto1 = Auto("blau", 210, "Tempomat", False) # Standard
+auto2 = Auto("schwarz", 280, "Tempomat", True) # Sportkombi
+auto3 = Auto("rot", 210, "Spurhalteassistent", False) # Standard
+auto4 = Auto("weiß", 280, "Einparkhilfe", True) # Sportkombi
+
+# Ausgabe
+auto1.info()
+auto2.info()
+auto3.info()
+auto4.info()
+
+print("HISTORIE")
+for fahrzeug in reversed(Auto.historie):
+    fahrzeug.info()
